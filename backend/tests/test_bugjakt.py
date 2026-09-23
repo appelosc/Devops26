@@ -17,3 +17,21 @@ client = TestClient(app)
 
 
 # Skriv ert test här:
+
+def test_create_and_count_characters() -> None:
+    client.post("/api/items", json={"text": "milk"})
+    response = client.post("/api/items", json={"text": "bread"})
+    assert response.status_code == 201
+    created = response.json()
+
+    response = client.get("/api/items/stats")
+    assert response.status_code == 200
+    stats = response.json()
+
+    assert stats['total_characters'] == 9
+
+    client.delete(f"/api/items/{created['id']}")
+    response = client.get("/api/items/stats")
+    stats = response.json()
+    assert stats['total_characters'] == 4
+
