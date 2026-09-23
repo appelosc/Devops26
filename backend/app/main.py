@@ -5,8 +5,6 @@ during the course (tests, CI, containers, deployment) without needing to
 understand a complex domain model first.
 """
 from __future__ import annotations
-
-
 from fastapi import FastAPI, HTTPException
 from pydantic import BaseModel
 
